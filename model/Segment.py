@@ -27,3 +27,58 @@ def type_segment(objet: dict) -> bool:
            and type_etat_segment(objet[const.SEGMENT_ETAT])
 
 
+
+def construireSegment(coord: tuple = None) -> dict:
+
+    if type_coordonnees(coord) == True:
+        dico = {const.SEGMENT_COORDONNEES:coord,const.SEGMENT_ETAT:const.INTACT}
+    else:
+        raise ValueError("construireSegment : le paramètre … ne correspond pas à des coordonnées")
+    return dico
+
+
+def getCoordonneesSegment(segment:dict) -> tuple:
+
+    if not type_segment(segment):
+        raise ValueError("getCoordonneesSegment : le paramètre … n’est pas de type Segment.")
+
+
+    coord = segment[const.SEGMENT_COORDONNEES]
+
+    return coord
+
+
+def getEtatSegment(segment:dict) -> str:
+
+    if not type_segment(segment):
+        raise ValueError("getEtatSegment : le paramètre … n’est pas de type Segment.")
+
+
+    return segment[const.SEGMENT_ETAT]
+
+
+def setCoordonneesSegment(segment:dict,coord:tuple) -> None:
+
+    if type_segment(segment):
+        if type_coordonnees(coord):
+            segment[const.SEGMENT_COORDONNEES] = coord
+        else:
+            raise ValueError("setCoordonneesSegment : le paramètre … ne correspond pas à des coordonnées")
+    else:
+        raise ValueError("setCoordonneesSegment : le paramètre … n’est pas de type Segment.")
+
+
+    return None
+
+
+def setEtatSegment(segment:dict,etat:str) -> None:
+
+    if type_segment(segment):
+        if type_etat_segment(etat):
+            segment[const.SEGMENT_ETAT] = etat
+        else:
+            raise ValueError("setEtatSegment : le paramètre … ne correspond pas à un etat")
+    else:
+        raise ValueError("setEtatSegment : le paramètre … n’est pas de type Segment.")
+
+    return None
