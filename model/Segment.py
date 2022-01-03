@@ -67,7 +67,6 @@ def setCoordonneesSegment(segment:dict,coord:tuple) -> None:
     else:
         raise ValueError("setCoordonneesSegment : le paramètre … n’est pas de type Segment.")
 
-
     return None
 
 
