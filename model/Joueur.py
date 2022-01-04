@@ -66,3 +66,13 @@ def getNombreBateauxJoueur(joueur:dict) -> int:
     NbrBateauJoueur = len(joueur[const.JOUEUR_LISTE_BATEAUX])
 
     return NbrBateauJoueur
+
+
+def getBateauxJoueur(joueur:dict) -> list:
+
+    if not type_joueur(joueur):
+        raise ValueError("getBateauxJoueur : Erreur ce n'est pas un joueur")
+
+    bateauxJoueur = joueur[const.JOUEUR_LISTE_BATEAUX]
+
+    return bateauxJoueur
