@@ -47,3 +47,13 @@ def construireJoueur(PlayerName: str, Bateau: dict) -> dict:
         raise ValueError("construireJoueur : Erreur ce n'est pas un joueur")
 
     return joueur
+
+
+def getNomJoueur(joueur:dict) -> str:
+
+    if not type_joueur(joueur):
+        raise ValueError("getNomJoueur : Erreur ce n'est pas un joueur")
+
+    NomJoueur = joueur[const.JOUEUR_NOM]
+
+    return NomJoueur
