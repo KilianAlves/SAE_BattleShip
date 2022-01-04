@@ -10,6 +10,7 @@ from model.Case import type_case
 # Bien qu'on pourrait créer une autre grille contenant les bateaux, ceux-ci seront stockés dans une liste
 # et chaque bateau contiendra sa liste de coordonnées.
 #
+from model.Segment import construireSegment
 
 
 def type_grille(g: list) -> bool:
@@ -33,3 +34,15 @@ def type_grille(g: list) -> bool:
     return res
 
 
+def construireGrille() -> list:
+
+
+    grille = []
+    for k in range(0,const.DIM):
+        grille.append([])
+
+    for i in range(0,const.DIM):
+        for j in range(0,const.DIM):
+            grille[i].append(None)
+
+    return grille
