@@ -57,3 +57,12 @@ def getNomJoueur(joueur:dict) -> str:
     NomJoueur = joueur[const.JOUEUR_NOM]
 
     return NomJoueur
+
+def getNombreBateauxJoueur(joueur:dict) -> int:
+
+    if not type_joueur(joueur):
+        raise ValueError("getNombreBateauxJoueur : Erreur ce n'est pas un joueur")
+
+    NbrBateauJoueur = len(joueur[const.JOUEUR_LISTE_BATEAUX])
+
+    return NbrBateauJoueur
