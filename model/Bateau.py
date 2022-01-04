@@ -9,6 +9,7 @@
 #
 
 from model.Segment import type_segment
+from model.Segment import construireSegment
 from model.Constantes import *
 
 
@@ -28,3 +29,21 @@ def type_bateau(bateau: dict) -> bool:
         all([type_segment(s) for s in bateau[const.BATEAU_SEGMENTS]])
 
 
+
+def construireBateau(name:str) -> dict:
+    """
+    regarde si le nom est valide
+    """
+    if name not in const.BATEAUX_CASES:
+        raise ValueError("construireBateau : la valeur n'est pas un str valide")
+
+    chiffre = const.BATEAUX_CASES[name]
+
+    segment = []
+    for j in range(0,chiffre):
+        segment.append(construireSegment())
+
+
+    dico = {const.BATEAU_NOM:name,const.BATEAU_SEGMENTS:segment}
+
+    return dico
