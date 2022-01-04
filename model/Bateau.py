@@ -7,7 +7,7 @@
 #       Si le bateau n'est pas positionné, les coordonnées valent None et les états valent const.RATE
 #   La taille du bateau n'est pas stockée car elle correspond à la taille de la liste des listes [coordonnées, état]
 #
-
+from model.Coordonnees import type_coordonnees
 from model.Segment import type_segment, getCoordonneesSegment
 from model.Segment import construireSegment
 from model.Constantes import *
@@ -119,9 +119,33 @@ def setSegmentBateau(Bateau:dict,SegmentNum:int,Segment:dict) -> None:
 def getCoordonneesBateau(Bateau:dict) -> list:
 
     if not type_bateau(Bateau):
-        raise ValueError("setSegmentBateau : ne peut pas trouver de nom car ce n'est pas un bateau")
+        raise ValueError("setSegmentBateau : erreur car ce n'est pas un bateau")
     coordBateau = []
     for i in range(0,getTailleBateau(Bateau)):
         coordBateau.append(getCoordonneesSegment(getSegmentBateau(Bateau,i)))
 
     return coordBateau
+
+
+def peutPlacerBateau(bateau:dict,first_case:tuple,horizontal:bool) -> bool:
+
+    if not type_bateau(bateau):
+        raise ValueError("peutPlacerBateau : erreur car ce n'est pas un bateau")
+    if not type_coordonnees(first_case) and not None:
+        raise ValueError("peutPlacerBateau : ne peut pas trouver de nom car ce n'est pas un bateau")
+    if not type(horizontal) == bool:
+        raise ValueError("peutPlacerBateau : n'est pas un bool")
+
+    res = False
+
+    #coord : (y,x)
+    if horizontal == True:
+        if (first_case[1] + getTailleBateau(bateau) -1) < const.DIM:
+            res = True
+    else:
+        if (first_case[0] + getTailleBateau(bateau) - 1) < const.DIM:
+            res = True
+
+    return res
+
+
