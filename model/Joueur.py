@@ -76,3 +76,22 @@ def getBateauxJoueur(joueur:dict) -> list:
     bateauxJoueur = joueur[const.JOUEUR_LISTE_BATEAUX]
 
     return bateauxJoueur
+
+
+def getGrilleTirsJoueur(joueur:dict) -> list:
+
+    if not type_joueur(joueur):
+        raise ValueError("getGrilleTirsJoueur : Erreur ce n'est pas un joueur")
+
+    GrilleTirsJoueur = joueur[const.JOUEUR_GRILLE_TIRS]
+
+    return GrilleTirsJoueur
+
+def getGrilleTirsAdversaire (joueur:dict) -> list:
+
+    if not type_joueur(joueur):
+        raise ValueError("getGrilleTirsAdversaire  : Erreur ce n'est pas un joueur")
+
+    GrilleTirsJoueur = joueur[const.JOUEUR_GRILLE_ADVERSAIRE]
+
+    return GrilleTirsJoueur
