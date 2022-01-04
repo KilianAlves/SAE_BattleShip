@@ -51,9 +51,17 @@ def construireBateau(name:str) -> dict:
 def getNomBateau(Bateau:dict) -> str:
 
     if not type_bateau(Bateau):
-        raise ValueError("getNomBateau : ne peut pas trouver de nom car ce n'est pas un batteau")
-    else:
-        BateauNom = Bateau[const.BATEAU_NOM]
+        raise ValueError("getNomBateau : ne peut pas trouver de nom car ce n'est pas un bateau")
+
+    BateauNom = Bateau[const.BATEAU_NOM]
 
     return BateauNom
 
+def getTailleBateau(Bateau:dict) -> int:
+
+    if not type_bateau(Bateau):
+        raise ValueError("getNomBateau : ne peut pas trouver de nom car ce n'est pas un bateau")
+
+    BateauTaille = len(Bateau[const.BATEAU_SEGMENTS])
+
+    return BateauTaille
