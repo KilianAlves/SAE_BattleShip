@@ -8,7 +8,7 @@
 #   La taille du bateau n'est pas stockée car elle correspond à la taille de la liste des listes [coordonnées, état]
 #
 
-from model.Segment import type_segment
+from model.Segment import type_segment, getCoordonneesSegment
 from model.Segment import construireSegment
 from model.Constantes import *
 
@@ -60,8 +60,68 @@ def getNomBateau(Bateau:dict) -> str:
 def getTailleBateau(Bateau:dict) -> int:
 
     if not type_bateau(Bateau):
-        raise ValueError("getNomBateau : ne peut pas trouver de nom car ce n'est pas un bateau")
+        raise ValueError("getTailleBateau : ne peut pas trouver de nom car ce n'est pas un bateau")
 
     BateauTaille = len(Bateau[const.BATEAU_SEGMENTS])
 
     return BateauTaille
+
+def getSegmentsBateau(Bateau:dict) -> list:
+
+    if not type_bateau(Bateau):
+        raise ValueError("getSegmentsBateau : ne peut pas trouver de nom car ce n'est pas un bateau")
+
+    BateauSeg = Bateau[const.BATEAU_SEGMENTS]
+
+    return BateauSeg
+
+def getSegmentBateau(Bateau:dict , numSegCo:object) -> object:
+
+    if not type_bateau(Bateau):
+        raise ValueError("getSegmentBateau : ne peut pas trouver de nom car ce n'est pas un bateau")
+
+    if type(numSegCo) == int:
+        # Il s’agit du numéro du segment
+
+        if (numSegCo > len(Bateau[const.BATEAU_SEGMENTS])-1) or (numSegCo < 0):
+            raise ValueError("getSegmentBateau : erreur car le numero de segment est trop grand ou trop petit")
+
+        segment = Bateau[const.BATEAU_SEGMENTS][numSegCo]
+
+    elif type(numSegCo) == tuple:
+        # Il s’agit de coordonnées
+        segment = None
+        v = 0 #v est une valeur
+        for v in getSegmentsBateau(Bateau):
+            if getCoordonneesSegment(v) == numSegCo:
+                segment = v
+        if segment is None:
+            raise ValueError("le segment est Null")
+    else:
+        raise ValueError(f"Le type du second paramètre {type(numSegCo)} ne correspond pas…")
+
+    return segment
+
+
+def setSegmentBateau(Bateau:dict,SegmentNum:int,Segment:dict) -> None:
+
+    if not type_bateau(Bateau):
+        raise ValueError("setSegmentBateau : ne peut pas trouver de nom car ce n'est pas un bateau")
+    if not type_segment(Segment):
+        raise ValueError("setSegmentBateau : ne peut pas trouver de nom car ce n'est pas un segment")
+    if (getTailleBateau(Bateau) <=  SegmentNum) or (SegmentNum < 0):
+        raise ValueError("setSegmentBateau : erreur le segment est trop grand ou trop petit")
+
+
+    Bateau[const.BATEAU_SEGMENTS][SegmentNum] = Segment
+    return None
+
+def getCoordonneesBateau(Bateau:dict) -> list:
+
+    if not type_bateau(Bateau):
+        raise ValueError("setSegmentBateau : ne peut pas trouver de nom car ce n'est pas un bateau")
+    coordBateau = []
+    for i in range(0,getTailleBateau(Bateau)):
+        coordBateau.append(getCoordonneesSegment(getSegmentBateau(Bateau,i)))
+
+    return coordBateau
