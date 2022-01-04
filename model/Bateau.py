@@ -32,7 +32,7 @@ def type_bateau(bateau: dict) -> bool:
 
 def construireBateau(name:str) -> dict:
     """
-    regarde si le nom est valide
+    regarde si le nom est valide et crées des segments
     """
     if name not in const.BATEAUX_CASES:
         raise ValueError("construireBateau : la valeur n'est pas un str valide")
@@ -47,3 +47,13 @@ def construireBateau(name:str) -> dict:
     dico = {const.BATEAU_NOM:name,const.BATEAU_SEGMENTS:segment}
 
     return dico
+
+def getNomBateau(Bateau:dict) -> str:
+
+    if not type_bateau(Bateau):
+        raise ValueError("getNomBateau : ne peut pas trouver de nom car ce n'est pas un batteau")
+    else:
+        BateauNom = Bateau[const.BATEAU_NOM]
+
+    return BateauNom
+
