@@ -5,10 +5,9 @@
 
 import pygame
 
-from view import window
-
 from model.Constantes import *
 from model.Joueur import construireJoueur
+from view import window
 
 def main_test():
     j = construireJoueur("Test", [const.PORTE_AVION, const.CUIRASSE, const.CROISEUR, const.TORPILLEUR])
@@ -24,3 +23,4 @@ if __name__ == '__main__':
     main_test()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
