@@ -124,6 +124,7 @@ def setSegmentBateau(Bateau: dict, SegmentNum: int, Segment: dict) -> None:
         raise ValueError(f"setSegmentBateau : erreur le segment est trop grand ou trop petit ({SegmentNum})")
 
     Bateau[const.BATEAU_SEGMENTS][SegmentNum] = Segment
+
     return None
 
 
@@ -189,10 +190,7 @@ def sontVoisinsBateau(bateau1:dict,bateau2:dict) -> bool:
         raise ValueError(f"sontVoisinsBateau : erreur car {bateau1} n'est pas un bateau")
     if not type_bateau(bateau2):
         raise ValueError(f"sontVoisinsBateau : erreur car {bateau2} n'est pas un bateau")
-    if not estPlaceBateau(bateau1):
-        raise ValueError(f"sontVoisinsBateau : {bateau1} n'est pas placé")
-    if not estPlaceBateau(bateau2):
-        raise ValueError(f"sontVoisinsBateau : {bateau2} n'est pas placé")
+
 
     res = False
     bateauCoord1 = getCoordonneesBateau(bateau1)
@@ -200,11 +198,44 @@ def sontVoisinsBateau(bateau1:dict,bateau2:dict) -> bool:
 
     for i in range(0,getTailleBateau(bateau1)):
         for j in range(0,getTailleBateau(bateau2)):
-            print("i",i," j",j)
-            if sontVoisins(bateauCoord1[i],bateauCoord2[j]):
-                res = True
+            if bateauCoord1[i] is not None and bateauCoord2[j] is not None:
+                if sontVoisins(bateauCoord1[i],bateauCoord2[j]):
+                    res = True
 
-    return res
+    estPlace1 = estPlaceBateau(bateau1)
+    estPlace2 = estPlaceBateau(bateau2)
 
+    return res and estPlace1 and estPlace2
+
+def placerBateau(bateau: dict,first_case:tuple,horizontal:bool) -> None:
+    """
+    place le bateau
+    """
+    if not type_bateau(bateau):
+        raise ValueError(f"placerBateau : erreur car  {bateau} n'est pas un bateau")
+    if not type_coordonnees(first_case):
+        raise ValueError(f"placerBateau : {first_case} n'est pas une coordonnée")
+
+    coordListe = []
+    x = first_case[1]
+    y = first_case[0]
+    if peutPlacerBateau(bateau,first_case,horizontal):
+        if horizontal == True:
+            for i in range(0, getTailleBateau(bateau)):
+                res = (y,x)
+                coordListe.append((res))
+                x = x + 1
+        else:
+            for i in range(0, getTailleBateau(bateau)):
+                res = (y,x)
+                coordListe.append((res))
+                y = y + 1
+
+    else:
+        raise RuntimeError(f"le bateau {bateau} ne peut pas être placé au coordonnée {first_case}")
+
+    for i in range(0,getTailleBateau(bateau)):
+        bateau[const.BATEAU_SEGMENTS][i][const.SEGMENT_COORDONNEES] = coordListe[i]
+    return None
 
 
