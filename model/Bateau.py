@@ -8,7 +8,7 @@
 #   La taille du bateau n'est pas stockée car elle correspond à la taille de la liste des listes [coordonnées, état]
 #
 from model.Coordonnees import type_coordonnees, sontVoisins
-from model.Segment import type_segment, getCoordonneesSegment
+from model.Segment import type_segment, getCoordonneesSegment, setEtatSegment
 from model.Segment import construireSegment
 from model.Constantes import *
 
@@ -236,6 +236,21 @@ def placerBateau(bateau: dict,first_case:tuple,horizontal:bool) -> None:
 
     for i in range(0,getTailleBateau(bateau)):
         bateau[const.BATEAU_SEGMENTS][i][const.SEGMENT_COORDONNEES] = coordListe[i]
+    return None
+
+
+def reinitialiserBateau(bateau:dict) -> None:
+    """
+    reset bateau
+    """
+    if not type_bateau(bateau):
+        raise ValueError(f"reinitialiserBateau : erreur car  {bateau} n'est pas un bateau")
+
+    coordListe = getCoordonneesBateau(bateau)
+
+    for i in range(0,getTailleBateau(bateau)):
+        setSegmentBateau(bateau,i,construireSegment())
+
     return None
 
 
