@@ -35,8 +35,9 @@ def type_grille(g: list) -> bool:
 
 
 def construireGrille() -> list:
-
-
+    """
+    construire la grille
+    """
     grille = []
     for k in range(0,const.DIM):
         grille.append([])

@@ -32,7 +32,9 @@ def type_joueur(joueur: dict) -> bool:
 
 
 def construireJoueur(PlayerName: str, Bateau: dict) -> dict:
-
+    """
+    construire le joueur
+    """
     Bateau = list(Bateau)
     bateauxList = []
 
@@ -41,27 +43,30 @@ def construireJoueur(PlayerName: str, Bateau: dict) -> dict:
 
     joueur = {const.JOUEUR_NOM : PlayerName, const.JOUEUR_LISTE_BATEAUX : bateauxList, const.JOUEUR_GRILLE_TIRS : construireGrille(), const.JOUEUR_GRILLE_ADVERSAIRE : construireGrille()}
 
-    print("joueur : ",joueur)
 
     if not type_joueur(joueur):
-        raise ValueError("construireJoueur : Erreur ce n'est pas un joueur")
+        raise ValueError(f"construireJoueur : Erreur {joueur} n'est pas un joueur")
 
     return joueur
 
 
 def getNomJoueur(joueur:dict) -> str:
-
+    """
+    recupere le nom du joueur
+    """
     if not type_joueur(joueur):
-        raise ValueError("getNomJoueur : Erreur ce n'est pas un joueur")
+        raise ValueError(f"getNomJoueur : Erreur {joueur} n'est pas un joueur")
 
     NomJoueur = joueur[const.JOUEUR_NOM]
 
     return NomJoueur
 
 def getNombreBateauxJoueur(joueur:dict) -> int:
-
+    """"
+    recupere le nombre de bateaux du joueurs
+    """
     if not type_joueur(joueur):
-        raise ValueError("getNombreBateauxJoueur : Erreur ce n'est pas un joueur")
+        raise ValueError(f"getNombreBateauxJoueur : Erreur {joueur} n'est pas un joueur")
 
     NbrBateauJoueur = len(joueur[const.JOUEUR_LISTE_BATEAUX])
 
@@ -69,9 +74,11 @@ def getNombreBateauxJoueur(joueur:dict) -> int:
 
 
 def getBateauxJoueur(joueur:dict) -> list:
-
+    """
+    recupere les bateaux du joueur
+    """
     if not type_joueur(joueur):
-        raise ValueError("getBateauxJoueur : Erreur ce n'est pas un joueur")
+        raise ValueError(f"getBateauxJoueur : Erreur {joueur} n'est pas un joueur")
 
     bateauxJoueur = joueur[const.JOUEUR_LISTE_BATEAUX]
 
@@ -79,18 +86,22 @@ def getBateauxJoueur(joueur:dict) -> list:
 
 
 def getGrilleTirsJoueur(joueur:dict) -> list:
-
+    """
+    recupere la grille de tir du joueur
+    """
     if not type_joueur(joueur):
-        raise ValueError("getGrilleTirsJoueur : Erreur ce n'est pas un joueur")
+        raise ValueError(f"getGrilleTirsJoueur : Erreur {joueur} n'est pas un joueur")
 
     GrilleTirsJoueur = joueur[const.JOUEUR_GRILLE_TIRS]
 
     return GrilleTirsJoueur
 
 def getGrilleTirsAdversaire (joueur:dict) -> list:
-
+    """
+    recupere la grille de tirs de l'adversaire
+    """
     if not type_joueur(joueur):
-        raise ValueError("getGrilleTirsAdversaire  : Erreur ce n'est pas un joueur")
+        raise ValueError(f"getGrilleTirsAdversaire  : Erreur {joueur} n'est pas un joueur")
 
     GrilleTirsJoueur = joueur[const.JOUEUR_GRILLE_ADVERSAIRE]
 
