@@ -6,8 +6,8 @@
 import pygame
 
 from model.Constantes import *
-from model.Joueur import construireJoueur
-from model.Manuel import choisirCaseTirManuel, placerBateauxManuel
+from model.Joueur import construireJoueur, repondreTirJoueur
+from model.Manuel import choisirCaseTirManuel, placerBateauxManuel, traiterResultatTirManuel
 from view import window
 
 def main_test():
@@ -19,8 +19,14 @@ def main_test():
     window.get_clicked_cell(2)
 
     placerBateauxManuel(j)
-    print(choisirCaseTirManuel(j))
+    coord = choisirCaseTirManuel(j)
+    print(coord)
+    rep = repondreTirJoueur(j,coord)
+    traiterResultatTirManuel(j,coord,rep)
 
+    window.refresh()
+    window.set_action("Pour terminer, cliquez dans la grille de DROITE")
+    window.get_clicked_cell(2)
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':

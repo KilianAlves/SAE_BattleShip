@@ -1,9 +1,9 @@
 # Joueur.py
 
 from model.Bateau import type_bateau, construireBateau, peutPlacerBateau, sontVoisinsBateau, placerBateau, getNomBateau, \
-    reinitialiserBateau
+    reinitialiserBateau, getSegmentBateau, getSegmentsBateau, estCouleBateau, getCoordonneesBateau, setEtatSegmentBateau
 from model.Coordonnees import type_coordonnees, sontVoisins
-from model.Grille import type_grille, construireGrille
+from model.Grille import type_grille, construireGrille, marquerCouleGrille
 from model.Constantes import *
 
 
@@ -15,6 +15,7 @@ from model.Constantes import *
 #  const.JOUEUR_GRILLE_ADVERSAIRE : une grille des tirs de l'adversaire pour tester la fonction de tir
 #  de l'adversaire.
 #
+from model.Segment import getEtatSegment
 
 
 def type_joueur(joueur: dict) -> bool:
@@ -140,9 +141,40 @@ def placerBateauJoueur(joueur:dict,bateau:dict,first_case:tuple,horizontal:bool)
 def reinitialiserBateauxJoueur(joueur: dict) -> None:
 
     if not type_joueur(joueur):
-        raise ValueError
+        raise ValueError(f"reinitialiserBateauxJoueur : erreur {joueur} n'est pas un joueur")
 
     for i in joueur[const.JOUEUR_LISTE_BATEAUX]:
         reinitialiserBateau(i)
 
     return None
+
+
+def repondreTirJoueur(joueur:dict,coord:tuple) -> str:
+
+    if not type_joueur(joueur):
+        raise ValueError(f"repondreTirJoueur : erreur {joueur} n'est pas un joueur")
+    if not type_coordonnees(coord):
+        raise ValueError(f"repondreTirJoueur : erreur {coord} n'est pas une coordonnée")
+    if None in coord:
+        raise ValueError(f"repondreTirJoueur : erreur {coord} est Null")
+
+
+    lstBateauxJoueur = joueur[const.JOUEUR_LISTE_BATEAUX]
+
+
+    for i in lstBateauxJoueur:
+        if coord in getCoordonneesBateau(i): #bateau aux coordonnée
+            setEtatSegmentBateau(i,coord,const.TOUCHE)
+
+            if estCouleBateau(i) == True:
+                marquerCouleGrille(getGrilleTirsAdversaire(joueur),coord)
+                etat = const.COULE
+            else:
+                etat = const.TOUCHE
+        else: #pas de bateau aux coordonnée
+            etat = const.RATE
+
+
+    return etat
+
+

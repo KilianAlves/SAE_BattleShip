@@ -1,5 +1,5 @@
 # Grille.py
-
+from model.Bateau import setEtatSegmentBateau
 from model.Constantes import *
 from model.Case import type_case
 
@@ -10,6 +10,7 @@ from model.Case import type_case
 # Bien qu'on pourrait créer une autre grille contenant les bateaux, ceux-ci seront stockés dans une liste
 # et chaque bateau contiendra sa liste de coordonnées.
 #
+from model.Coordonnees import type_coordonnees
 from model.Segment import construireSegment
 
 
@@ -47,3 +48,27 @@ def construireGrille() -> list:
             grille[i].append(None)
 
     return grille
+
+
+def marquerCouleGrille(grille:list,coord:tuple) -> None:
+
+    if not type_grille(grille):
+        raise ValueError(f"marquerCouleGrille : erreur {grille} n'est pas une grille")
+    if not type_coordonnees(coord):
+        raise ValueError(f"marquerCouleGrille : erreur {coord} n'est pas une coordonnée")
+
+    lst = [coord]
+
+    while len(lst) != 0:
+        coordTempo = lst[0]
+        lst.pop(0)
+        lstVoisins = [(coord[0]-1,coord[1]),(coord[0]+1,coord[1]),(coord[0],coord[1]-1),(coord[0],coord[1]+1)]
+
+        grille[coordTempo[0]][coordTempo[1]] = const.COULE
+        for i in range(0,len(lstVoisins)):
+            if type_coordonnees(lstVoisins[i]) == True:
+                if grille[lstVoisins[i][0]][lstVoisins[i][1]] == const.TOUCHE:
+                    lst.append(lstVoisins[i])
+
+
+    return None
