@@ -8,7 +8,7 @@ import pygame
 from model.Constantes import *
 from model.Jeu import jouerJeu, getListeBateaux
 from model.Joueur import construireJoueur, repondreTirJoueur
-from model.Manuel import choisirCaseTirManuel, placerBateauxManuel, traiterResultatTirManuel
+from model.Manuel import choisirCaseTirManuel, placerBateauxManuel, traiterResultatTirManuel, construireActeurManuel
 from view import window
 
 def main_test():
@@ -32,13 +32,16 @@ def main_test():
 
 def main() -> None:
 
-    nomJoueur1 = "Joueur1"
-    nomJoueur2 = "Joueur"
+    nomJoueur1 = "AAAAAAAAAA"
+    nomJoueur2 = "BBBBBBBBB"
 
     joueur1 = construireJoueur(nomJoueur1,getListeBateaux())
     joueur2 = construireJoueur(nomJoueur2,getListeBateaux())
 
-    jouerJeu(joueur1,joueur2)
+    acteur1 = construireActeurManuel(joueur1)
+    acteur2 = construireActeurManuel(joueur2)
+
+    jouerJeu(acteur1,acteur2)
 
     return None
 

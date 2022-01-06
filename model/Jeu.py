@@ -39,40 +39,40 @@ def type_acteur(agent: dict) -> bool:
 
 def jouerJeu(joueur1: dict, joueur2: dict) -> None:
 
-    placerBateauxManuel(joueur1)
-    placerBateauxManuel(joueur2)
+    placerBateauxManuel(joueur1[const.ACTEUR])
+    placerBateauxManuel(joueur2[const.ACTEUR])
 
     JoueurRandom = randint(1,2)
 
-    while (estPerdantJoueur(joueur1) == False) and (estPerdantJoueur(joueur2) == False):
+    while (estPerdantJoueur(joueur1[const.ACTEUR]) == False) and (estPerdantJoueur(joueur2[const.ACTEUR]) == False):
 
 
         window.afficher()
 
         if JoueurRandom == 1:
             JoueurRandom = 2
-            window.display_message(f"C’est au tour de {joueur1[const.JOUEUR_NOM]}")
-            coord = choisirCaseTirManuel(joueur1)
-            rep = repondreTirJoueur(joueur2,coord)
-            traiterResultatTirManuel(joueur1,coord,rep)
+            window.display_message(f"C’est au tour de {joueur1[const.ACTEUR][const.JOUEUR_NOM]}")
+            coord = joueur1[const.ACTEUR_CHOISIR_CASE](joueur1[const.ACTEUR])
+            rep = repondreTirJoueur(joueur2[const.ACTEUR],coord)
+            joueur1[const.ACTEUR_TRAITER_RESULTAT](joueur1[const.ACTEUR],coord,rep)
             window.refresh()
             window.display_message(f"Tir en {coord} : {rep}")
         else:
             JoueurRandom = 1
-            window.display_message(f"C’est au tour de {joueur2[const.JOUEUR_NOM]}")
-            coord = choisirCaseTirManuel(joueur2)
-            rep = repondreTirJoueur(joueur1, coord)
-            traiterResultatTirManuel(joueur2, coord, rep)
+            window.display_message(f"C’est au tour de {joueur2[const.ACTEUR][const.JOUEUR_NOM]}")
+            coord = joueur2[const.ACTEUR_CHOISIR_CASE](joueur2[const.ACTEUR])
+            rep = repondreTirJoueur(joueur1[const.ACTEUR], coord)
+            joueur2[const.ACTEUR_TRAITER_RESULTAT](joueur2[const.ACTEUR], coord, rep)
             window.refresh()
             window.display_message(f"Tir en {coord} : {rep}")
 
 
-    if estPerdantJoueur(joueur1):
-        window.display_message(f"Le gagnant est {joueur1[const.JOUEUR_NOM]}")
-        print(f"le gagnant est : {joueur1[const.JOUEUR_NOM]}")
+    if estPerdantJoueur(joueur1[const.ACTEUR]):
+        window.display_message(f"Le gagnant est {joueur2[const.ACTEUR][const.JOUEUR_NOM]}")
+        print(f"le gagnant est : {joueur2[const.ACTEUR][const.JOUEUR_NOM]}")
     else:
-        window.display_message(f"Le gagnant est {joueur2[const.JOUEUR_NOM]}")
-        print(f"le gagnant est : {joueur2[const.JOUEUR_NOM]}")
+        window.display_message(f"Le gagnant est {joueur1[const.ACTEUR][const.JOUEUR_NOM]}")
+        print(f"le gagnant est : {joueur1[const.ACTEUR][const.JOUEUR_NOM]}")
 
     return None
 

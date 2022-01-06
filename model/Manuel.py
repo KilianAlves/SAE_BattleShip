@@ -48,3 +48,15 @@ def traiterResultatTirManuel(joueur:dict,coord:tuple,rep:str) -> None:
     print(rep)
 
     return None
+
+
+def construireActeurManuel(joueur:dict) -> dict:
+
+    if not type_joueur(joueur):
+        raise ValueError(f"construireActeurManuel : erreur {joueur} n'est pas un acteur/joueur")
+
+    acteur = {const.ACTEUR:joueur,const.ACTEUR_PLACER_BATEAUX:placerBateauxManuel,const.ACTEUR_CHOISIR_CASE:choisirCaseTirManuel,const.ACTEUR_TRAITER_RESULTAT:traiterResultatTirManuel}
+
+
+
+    return acteur
