@@ -178,3 +178,16 @@ def repondreTirJoueur(joueur:dict,coord:tuple) -> str:
     return etat
 
 
+def estPerdantJoueur(joueur:dict) -> bool:
+
+    if not type_joueur(joueur):
+        raise ValueError(f"estPerdantJoueur : erreur {joueur} n'est pas un joueur")
+
+    res = True
+    lstBateauxJoueur = joueur[const.JOUEUR_LISTE_BATEAUX]
+
+    for i in lstBateauxJoueur:
+        if estCouleBateau(i) == False:
+            res = False
+
+    return res
