@@ -8,6 +8,7 @@
 #   La taille du bateau n'est pas stockée car elle correspond à la taille de la liste des listes [coordonnées, état]
 #
 from model.Coordonnees import type_coordonnees, sontVoisins
+from model.Etat import type_etat_segment
 from model.Segment import type_segment, getCoordonneesSegment, setEtatSegment
 from model.Segment import construireSegment
 from model.Constantes import *
@@ -273,6 +274,24 @@ def est_horizontal_bateau(bateau: dict) -> bool:
         for i in range(1, len(pos)):
             if (res and pos[0][0] != pos[i][0]) or (not res and pos[0][1] != pos[i][1]):
                 raise ValueError("est_horizontal_bateau: Le bateau n'est ni horizontal, ni vertical ??")
+    return res
+
+
+def contientSegmentBateau(bateau:dict,coord:tuple) -> bool:
+
+    if not type_bateau(bateau):
+        raise ValueError(f"contientSegmentBateau : erreur {bateau} n'est pas un bateau")
+    if not type_coordonnees(coord):
+        raise ValueError(f"contientSegmentBateau : erreur {coord} n'est pas une coordonnee")
+    if None in coord:
+        raise ValueError(f"contientSegmentBateau : erreur {coord} est Null")
+
+
+    res = False
+
+    if coord in getCoordonneesBateau(bateau):
+        res = True
+
     return res
 
 
