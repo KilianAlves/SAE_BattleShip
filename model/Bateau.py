@@ -9,7 +9,7 @@
 #
 from model.Coordonnees import type_coordonnees, sontVoisins
 from model.Etat import type_etat_segment
-from model.Segment import type_segment, getCoordonneesSegment, setEtatSegment
+from model.Segment import type_segment, getCoordonneesSegment, setEtatSegment, getEtatSegment
 from model.Segment import construireSegment
 from model.Constantes import *
 
@@ -306,16 +306,28 @@ def setEtatSegmentBateau(bateau:dict,coord:tuple,etat:str) -> None:
     if not type_etat_segment(etat):
         raise ValueError(f"setEtatSegmentBateau : erreur {etat} n'est pas un etat")
 
-    print("0")
+
     if contientSegmentBateau(bateau,coord) == True:
-        print("1")
         segment = getSegmentBateau(bateau,coord)
-        print("2")
         setEtatSegment(segment,etat)
-        print("3")
     else:
         raise ValueError(f"setEtatSegmentBateau : erreur le bateau {bateau} n'a pas de segment au coordonnée {coord}")
 
     return None
 
 
+def estCouleBateau(bateau:dict) -> bool:
+
+    if not type_bateau(bateau):
+        raise ValueError(f"setEtatSegmentBateau : erreur {bateau} n'est pas un bateau")
+
+    lst = getSegmentsBateau(bateau)
+    res = True
+
+    for i in range(0,len(lst)):
+        etat = getEtatSegment(lst[i])
+        if etat == const.INTACT:
+            res = False
+
+
+    return res
