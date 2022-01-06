@@ -315,7 +315,6 @@ def setEtatSegmentBateau(bateau:dict,coord:tuple,etat:str) -> None:
 
     return None
 
-
 def estCouleBateau(bateau:dict) -> bool:
 
     if not type_bateau(bateau):

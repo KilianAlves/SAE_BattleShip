@@ -50,25 +50,26 @@ def construireGrille() -> list:
     return grille
 
 
-def marquerCouleGrille(grille:list,coord:tuple) -> None:
+def marquerCouleGrille(grille: list, coord: tuple) -> None:
 
     if not type_grille(grille):
         raise ValueError(f"marquerCouleGrille : erreur {grille} n'est pas une grille")
     if not type_coordonnees(coord):
         raise ValueError(f"marquerCouleGrille : erreur {coord} n'est pas une coordonnée")
+    if None in coord:
+        raise ValueError(f"marquerCouleGrille : erreur {coord}")
 
     lst = [coord]
 
-    while len(lst) != 0:
-        coordTempo = lst[0]
-        lst.pop(0)
-        lstVoisins = [(coord[0]-1,coord[1]),(coord[0]+1,coord[1]),(coord[0],coord[1]-1),(coord[0],coord[1]+1)]
+    while len(lst) > 0:
+        tempCord = lst[0]
+        del lst[0]
+        grille[tempCord[0]][tempCord[1]] = const.COULE
+        lstVoisins = [(tempCord[0]-1,tempCord[1]),(tempCord[0]+1,tempCord[1]),(tempCord[0],tempCord[1]-1),(tempCord[0],tempCord[1]+1)]
 
-        grille[coordTempo[0]][coordTempo[1]] = const.COULE
-        for i in range(0,len(lstVoisins)):
-            if type_coordonnees(lstVoisins[i]) == True:
-                if grille[lstVoisins[i][0]][lstVoisins[i][1]] == const.TOUCHE:
-                    lst.append(lstVoisins[i])
-
+        for i in lstVoisins:
+            if i[0] >= 0 and i[0] < const.DIM and i[1] >= 0 and i[1] < const.DIM :
+                if grille[i[0]][i[1]] == const.TOUCHE:
+                    lst.append(i)
 
     return None

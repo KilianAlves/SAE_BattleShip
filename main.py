@@ -6,6 +6,7 @@
 import pygame
 
 from model.Constantes import *
+from model.Jeu import jouerJeu, getListeBateaux
 from model.Joueur import construireJoueur, repondreTirJoueur
 from model.Manuel import choisirCaseTirManuel, placerBateauxManuel, traiterResultatTirManuel
 from view import window
@@ -28,9 +29,25 @@ def main_test():
     window.set_action("Pour terminer, cliquez dans la grille de DROITE")
     window.get_clicked_cell(2)
 
+
+def main() -> None:
+
+    nomJoueur1 = "Joueur1"
+    nomJoueur2 = "Joueur"
+
+    joueur1 = construireJoueur(nomJoueur1,getListeBateaux())
+    joueur2 = construireJoueur(nomJoueur2,getListeBateaux())
+
+    jouerJeu(joueur1,joueur2)
+
+    return None
+
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    main_test()
+    main()
+
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 

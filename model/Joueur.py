@@ -1,7 +1,8 @@
 # Joueur.py
 
 from model.Bateau import type_bateau, construireBateau, peutPlacerBateau, sontVoisinsBateau, placerBateau, getNomBateau, \
-    reinitialiserBateau, getSegmentBateau, getSegmentsBateau, estCouleBateau, getCoordonneesBateau, setEtatSegmentBateau
+    reinitialiserBateau, getSegmentBateau, getSegmentsBateau, estCouleBateau, getCoordonneesBateau, \
+    setEtatSegmentBateau, getTailleBateau
 from model.Coordonnees import type_coordonnees, sontVoisins
 from model.Grille import type_grille, construireGrille, marquerCouleGrille
 from model.Constantes import *
@@ -161,6 +162,7 @@ def repondreTirJoueur(joueur:dict,coord:tuple) -> str:
 
     lstBateauxJoueur = joueur[const.JOUEUR_LISTE_BATEAUX]
 
+    etat = const.RATE
 
     for i in lstBateauxJoueur:
         if coord in getCoordonneesBateau(i): #bateau aux coordonnée
@@ -168,12 +170,12 @@ def repondreTirJoueur(joueur:dict,coord:tuple) -> str:
 
             if estCouleBateau(i) == True:
                 marquerCouleGrille(getGrilleTirsAdversaire(joueur),coord)
+
                 etat = const.COULE
             else:
                 etat = const.TOUCHE
-        else: #pas de bateau aux coordonnée
-            etat = const.RATE
 
+    joueur[const.JOUEUR_GRILLE_ADVERSAIRE][coord[0]][coord[1]] = etat
 
     return etat
 
